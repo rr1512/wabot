@@ -3,12 +3,18 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
+    "dev": "node index.js",
+    "build": "echo 'No build step required'",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": ["whatsapp", "bot", "baileys", "crm", "business"],
   "author": "",
   "license": "ISC",
-  "description": "",
+  "description": "WhatsApp Bot with CRM Dashboard - Business communication platform",
   "dependencies": {
     "@supabase/supabase-js": "^2.52.0",
     "@whiskeysockets/baileys": "^6.7.18",
