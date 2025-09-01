@@ -1,0 +1,87 @@
+{
+  "chats": [
+    {
+      "id": "6285855083333@s.whatsapp.net"
+    },
+    {
+      "id": "6282164093236@s.whatsapp.net"
+    }
+  ],
+  "messages": {
+    "6285855083333@s.whatsapp.net": [
+      {
+        "fromMe": false,
+        "message": "p",
+        "timestamp": 1752943625000,
+        "imageUrl": null
+      },
+      {
+        "fromMe": true,
+        "message": "halo",
+        "timestamp": 1752943671774
+      },
+      {
+        "fromMe": true,
+        "message": "halo",
+        "timestamp": 1752943671000,
+        "imageUrl": null
+      },
+      {
+        "fromMe": true,
+        "message": "halo lagi",
+        "timestamp": 1752943926869,
+        "messageKey": "3EB00E2B06D3E69E3C0791"
+      },
+      {
+        "fromMe": false,
+        "message": "qwf",
+        "timestamp": 1752944859000,
+        "imageUrl": null,
+        "messageKey": "3EB09E2CDC2A8EA95D5A70"
+      },
+      {
+        "fromMe": false,
+        "message": "qwf",
+        "timestamp": 1752945189000,
+        "imageUrl": null,
+        "messageKey": "3EB02254025DA6D80F84E8"
+      }
+    ],
+    "6282164093236@s.whatsapp.net": [
+      {
+        "fromMe": false,
+        "message": "p",
+        "timestamp": 1752943702000,
+        "imageUrl": null
+      },
+      {
+        "fromMe": false,
+        "message": "qwf",
+        "timestamp": 1752944878000,
+        "imageUrl": null,
+        "messageKey": "3F5499B96CD85B64002D"
+      },
+      {
+        "fromMe": false,
+        "message": "qwf",
+        "timestamp": 1752945023000,
+        "imageUrl": null,
+        "messageKey": "3F0EB3FB2D5676DE65CE"
+      },
+      {
+        "fromMe": false,
+        "message": "wqf.",
+        "timestamp": 1752945177000,
+        "imageUrl": null,
+        "messageKey": "3FF1135739A0D03B3EF3"
+      },
+      {
+        "fromMe": false,
+        "message": "halo",
+        "timestamp": 1752945706000,
+        "imageUrl": null,
+        "messageKey": "3F3BED254185488C22E5"
+      }
+    ]
+  }
+}

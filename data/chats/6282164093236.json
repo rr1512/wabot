@@ -1,0 +1,290 @@
+[
+  {
+    "id": "1753085862033",
+    "message": "halo",
+    "mediaUrl": null,
+    "mediaType": null,
+    "direction": "incoming",
+    "timestamp": "2025-07-21T08:17:42.033Z",
+    "status": "received",
+    "pushname": "Ronal",
+    "read": true
+  },
+  {
+    "id": "1753085889023",
+    "message": "halo",
+    "mediaUrl": null,
+    "mediaType": null,
+    "direction": "incoming",
+    "timestamp": "2025-07-21T08:18:09.023Z",
+    "status": "received",
+    "pushname": "Ronal",
+    "read": true
+  },
+  {
+    "id": "1753085900727",
+    "message": "Halo kak, mau buat undangan digital? 😊",
+    "mediaUrl": null,
+    "mediaType": null,
+    "direction": "outgoing",
+    "timestamp": "2025-07-21T08:18:20.727Z",
+    "status": "sent",
+    "pushname": "AI Assistant"
+  },
+  {
+    "id": "1753085900729",
+    "message": "Halo kak, mau buat undangan digital? 😊",
+    "mediaUrl": null,
+    "mediaType": null,
+    "direction": "outgoing",
+    "timestamp": "2025-07-21T08:18:20.729Z",
+    "status": "sent",
+    "pushname": "Me"
+  },
+  {
+    "id": "1753086235768",
+    "message": "halo",
+    "mediaUrl": null,
+    "mediaType": null,
+    "direction": "incoming",
+    "timestamp": "2025-07-21T08:23:55.768Z",
+    "status": "received",
+    "pushname": "Ronal",
+    "read": true
+  },
+  {
+    "id": "1753086248514",
+    "message": "Halo kak, mau buat undangan digital? 😊",
+    "mediaUrl": null,
+    "mediaType": null,
+    "direction": "outgoing",
+    "timestamp": "2025-07-21T08:24:08.514Z",
+    "status": "sent",
+    "pushname": "AI Assistant"
+  },
+  {
+    "id": "1753086264133",
+    "message": "Mana fotonya bang?",
+    "mediaUrl": null,
+    "mediaType": null,
+    "direction": "outgoing",
+    "timestamp": "2025-07-21T08:24:24.133Z",
+    "status": "sent",
+    "pushname": "Me"
+  },
+  {
+    "id": "1753087318119",
+    "message": "halo",
+    "mediaUrl": null,
+    "mediaType": null,
+    "direction": "outgoing",
+    "timestamp": "2025-07-21T08:41:58.119Z",
+    "status": "sent",
+    "pushname": "Me"
+  },
+  {
+    "id": "1753093008658",
+    "message": "meja kursi.jpg",
+    "mediaUrl": null,
+    "mediaType": "image",
+    "direction": "outgoing",
+    "timestamp": "2025-07-21T10:16:48.658Z",
+    "status": "sent",
+    "pushname": "Me"
+  },
+  {
+    "id": "1753093252733",
+    "message": "Sequence 01.00_00_00_00.Still002.jpg",
+    "mediaUrl": null,
+    "mediaType": "image",
+    "direction": "outgoing",
+    "timestamp": "2025-07-21T10:20:52.733Z",
+    "status": "sent",
+    "pushname": "Me"
+  },
+  {
+    "id": "1753093622060",
+    "message": "Picture1.jpg",
+    "mediaUrl": null,
+    "mediaType": "image",
+    "direction": "outgoing",
+    "timestamp": "2025-07-21T10:27:02.060Z",
+    "status": "sent",
+    "pushname": "Me"
+  },
+  {
+    "id": "1753094139567",
+    "message": "[Image sent]",
+    "mediaUrl": null,
+    "mediaType": "image",
+    "direction": "outgoing",
+    "timestamp": "2025-07-21T10:35:39.567Z",
+    "status": "sent",
+    "pushname": "Me"
+  },
+  {
+    "id": "1753094140220",
+    "message": "[Image]",
+    "mediaUrl": "https://wa.lalaraya.my.id/media/1753094140219.jpg",
+    "mediaType": "image",
+    "direction": "outgoing",
+    "timestamp": "2025-07-21T10:35:40.220Z",
+    "status": "sent",
+    "pushname": "Me"
+  },
+  {
+    "id": "1753094409945",
+    "message": "[Document] fpria_2qfio.webp",
+    "mediaUrl": "https://wa.lalaraya.my.id/media/1753094409944.webp",
+    "mediaType": "document",
+    "direction": "incoming",
+    "timestamp": "2025-07-21T10:40:09.945Z",
+    "status": "received",
+    "pushname": "Ronal",
+    "read": true
+  },
+  {
+    "id": "1753094675941",
+    "message": "qwf",
+    "mediaUrl": null,
+    "mediaType": null,
+    "direction": "incoming",
+    "timestamp": "2025-07-21T10:44:35.941Z",
+    "status": "received",
+    "pushname": "Ronal",
+    "read": true
+  },
+  {
+    "id": "1753094681107",
+    "message": "qwf",
+    "mediaUrl": null,
+    "mediaType": null,
+    "direction": "incoming",
+    "timestamp": "2025-07-21T10:44:41.107Z",
+    "status": "received",
+    "pushname": "Ronal",
+    "read": true
+  },
+  {
+    "id": "1753095365436",
+    "message": "halo",
+    "mediaUrl": null,
+    "mediaType": null,
+    "direction": "incoming",
+    "timestamp": "2025-07-21T10:56:05.436Z",
+    "status": "received",
+    "pushname": "Ronal",
+    "read": true
+  },
+  {
+    "id": "1753095378079",
+    "message": "Halo kak, mau buat undangan digital? 😊",
+    "mediaUrl": null,
+    "mediaType": null,
+    "direction": "outgoing",
+    "timestamp": "2025-07-21T10:56:18.079Z",
+    "status": "sent",
+    "pushname": "AI Assistant"
+  },
+  {
+    "id": "1753095722463",
+    "message": "oke kak",
+    "mediaUrl": null,
+    "mediaType": null,
+    "direction": "outgoing",
+    "timestamp": "2025-07-21T11:02:02.463Z",
+    "status": "sent",
+    "pushname": "Me"
+  },
+  {
+    "id": "1753106285343",
+    "message": "as",
+    "mediaUrl": null,
+    "mediaType": null,
+    "direction": "incoming",
+    "timestamp": "2025-07-21T13:58:05.343Z",
+    "status": "received",
+    "pushname": "Ronal",
+    "read": true
+  },
+  {
+    "id": "1753106299659",
+    "message": "Maaf kak, MinVeeta tidak dapat mengetahui tentang pesan yang kakak kirim. Silakan kirim pesan ‘Chat Admin’ agar dibalas admin yaa 😊",
+    "mediaUrl": null,
+    "mediaType": null,
+    "direction": "outgoing",
+    "timestamp": "2025-07-21T13:58:19.659Z",
+    "status": "sent",
+    "pushname": "AI Assistant"
+  },
+  {
+    "id": "1754245712633",
+    "message": "halo",
+    "mediaUrl": null,
+    "mediaType": null,
+    "direction": "incoming",
+    "timestamp": "2025-08-03T18:28:32.633Z",
+    "status": "received",
+    "pushname": "Ronal"
+  },
+  {
+    "id": "1754245730223",
+    "message": "Halo kak, mau buat undangan digital? 😊",
+    "mediaUrl": null,
+    "mediaType": null,
+    "direction": "outgoing",
+    "timestamp": "2025-08-03T18:28:50.223Z",
+    "status": "sent",
+    "pushname": "AI Assistant"
+  },
+  {
+    "id": "1756379539607",
+    "message": "halo",
+    "mediaUrl": null,
+    "mediaType": null,
+    "direction": "incoming",
+    "timestamp": "2025-08-28T11:12:19.607Z",
+    "status": "received",
+    "pushname": "Ronal"
+  },
+  {
+    "id": "1756379563094",
+    "message": "qwf",
+    "mediaUrl": null,
+    "mediaType": null,
+    "direction": "incoming",
+    "timestamp": "2025-08-28T11:12:43.094Z",
+    "status": "received",
+    "pushname": "Ronal"
+  },
+  {
+    "id": "1756379606708",
+    "message": "qwf",
+    "mediaUrl": null,
+    "mediaType": null,
+    "direction": "incoming",
+    "timestamp": "2025-08-28T11:13:26.708Z",
+    "status": "received",
+    "pushname": "Ronal"
+  },
+  {
+    "id": "1756379613640",
+    "message": "qwf",
+    "mediaUrl": null,
+    "mediaType": null,
+    "direction": "incoming",
+    "timestamp": "2025-08-28T11:13:33.640Z",
+    "status": "received",
+    "pushname": "Ronal"
+  },
+  {
+    "id": "1756379628017",
+    "message": "Maaf kak, MinVeeta tidak dapat mengetahui tentang pesan yang kakak kirim. Silakan kirim pesan ‘Chat Admin’ agar dibalas admin yaa 😊",
+    "mediaUrl": null,
+    "mediaType": null,
+    "direction": "outgoing",
+    "timestamp": "2025-08-28T11:13:48.017Z",
+    "status": "sent",
+    "pushname": "AI Assistant"
+  }
+]

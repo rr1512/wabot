@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhatsApp CRM Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="css/crm.css" rel="stylesheet">
+    <style>
+        /* Override Bootstrap font sizes */
+        body {
+            font-size: 16px;
+        }
+        .btn {
+            font-size: 16px;
+        }
+        .btn-sm {
+            font-size: 14px;
+        }
+        .form-control, .form-select {
+            font-size: 16px;
+        }
+        .small {
+            font-size: 14px !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <a href="/crm.html" class="sidebar-logo">
+                    <i class="fas fa-whatsapp"></i>
+                </a>
+            </div>
+            <ul class="sidebar-menu">
+                <li class="sidebar-item active" title="Dashboard">
+                    <a href="/crm.html">
+                        <i class="fas fa-tachometer-alt"></i>
+                    </a>
+                </li>
+                <li class="sidebar-item" title="Chat">
+                    <a href="/chat.html">
+                        <i class="fas fa-comments"></i>
+                    </a>
+                </li>
+                <li class="sidebar-item" title="Campaigns">
+                    <a href="/campaigns.html">
+                        <i class="fas fa-bullhorn"></i>
+                    </a>
+                </li>
+                <li class="sidebar-item" title="Analytics">
+                    <a href="/analytics.html">
+                        <i class="fas fa-chart-line"></i>
+                    </a>
+                </li>
+                <li class="sidebar-item" title="Settings">
+                    <a href="/settings.html">
+                        <i class="fas fa-cog"></i>
+                    </a>
+                </li>
+            </ul>
+            <div class="sidebar-footer">
+                <a href="#" title="Help">
+                    <i class="fas fa-question-circle"></i>
+                </a>
+                <a href="#" title="Account">
+                    <i class="fas fa-user-circle"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="main-container">
+            <!-- Page Header -->
+            <div class="page-header">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <h1 class="header-title">
+                            CRM Dashboard
+                        </h1>
+                        <p class="header-subtitle">Manage your customer relationships efficiently</p>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="d-flex justify-content-end align-items-center gap-2">
+                            <button class="btn btn-outline-light position-relative" onclick="toggleNotifications()">
+                                    <i class="fas fa-bell"></i>
+                                <span id="notificationBadge" class="notification-badge" style="display: none;">0</span>
+                                </button>
+                            <button id="pushNotificationBtn" class="btn btn-outline-light btn-sm">
+                <i class="fas fa-bell-slash"></i> Enable Push
+            </button>
+                            <button class="btn btn-outline-light btn-sm" onclick="testPushNotification()">
+                <i class="fas fa-paper-plane"></i> Test Push
+            </button>
+                            <button class="btn btn-outline-light btn-sm" onclick="toggleDarkMode()">
+                                <i class="fas fa-moon"></i> Dark Mode
+                            </button>
+                        </div>
+                    </div>
+                        </div>
+                    </div>
+
+        <!-- Stats Cards -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-header">
+                    <span class="stat-title">Total Customers</span>
+                    <div class="stat-icon" style="background: rgba(99, 102, 241, 0.1); color: var(--primary-color);">
+                        <i class="fas fa-users"></i>
+                    </div>
+                </div>
+                <div class="stat-value" id="totalCustomers">0</div>
+                <div class="stat-change positive">
+                    <i class="fas fa-arrow-up"></i>
+                    <span>+12% from last month</span>
+                </div>
+                    </div>
+            <div class="stat-card">
+                <div class="stat-header">
+                    <span class="stat-title">New Today</span>
+                    <div class="stat-icon" style="background: rgba(16, 185, 129, 0.1); color: var(--success-color);">
+                        <i class="fas fa-user-plus"></i>
+                    </div>
+                </div>
+                <div class="stat-value" id="newCustomers">0</div>
+                <div class="stat-change positive">
+                    <i class="fas fa-arrow-up"></i>
+                    <span>+5 today</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-header">
+                    <span class="stat-title">In Progress</span>
+                    <div class="stat-icon" style="background: rgba(245, 158, 11, 0.1); color: var(--warning-color);">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                </div>
+                <div class="stat-value" id="inProgress">0</div>
+                <div class="stat-change negative">
+                    <i class="fas fa-arrow-down"></i>
+                    <span>-2 from yesterday</span>
+                </div>
+                        </div>
+            <div class="stat-card">
+                <div class="stat-header">
+                    <span class="stat-title">Completed</span>
+                    <div class="stat-icon" style="background: rgba(16, 185, 129, 0.1); color: var(--success-color);">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                </div>
+                <div class="stat-value" id="completed">0</div>
+                <div class="stat-change positive">
+                    <i class="fas fa-arrow-up"></i>
+                    <span>+8 this week</span>
+            </div>
+        </div>
+    </div>
+
+        <!-- Filters Section -->
+        <div class="filters-section">
+            <div class="filter-row">
+                <div class="filter-group" style="flex: 2;">
+                    <label class="filter-label">Search Customers</label>
+                    <input type="text" class="form-control" id="searchInput" placeholder="Search by name or phone number...">
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">Filter by Status</label>
+                    <select class="form-select" id="statusFilter">
+                        <option value="">All Status</option>
+                        <option value="new_customer">New Customer</option>
+                                <option value="awaiting_data">Awaiting Data</option>
+                                <option value="awaiting_foto">Awaiting Foto</option>
+                                <option value="awaiting_payment">Awaiting Payment</option>
+                                <option value="progress">Progress</option>
+                                <option value="done">Done</option>
+                            </select>
+                        </div>
+                <div class="filter-group">
+                    <label class="filter-label">Date Range</label>
+                    <select class="form-select" id="dateFilter">
+                        <option value="">All Time</option>
+                        <option value="today">Today</option>
+                        <option value="yesterday">Yesterday</option>
+                        <option value="this_week">This Week</option>
+                        <option value="last_week">Last Week</option>
+                        <option value="this_month">This Month</option>
+                        <option value="last_month">Last Month</option>
+                        <option value="custom">Custom Range</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">&nbsp;</label>
+                    <button class="btn btn-primary" onclick="loadCustomers()" style="width: 100%; height: 38px; display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-sync-alt"></i> Refresh
+                    </button>
+                            </div>
+                        </div>
+            <div class="filter-row" id="customDateRange" style="display: none;">
+                <div class="filter-group">
+                    <label class="filter-label">Start Date</label>
+                    <input type="date" class="form-control" id="startDate">
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">End Date</label>
+                    <input type="date" class="form-control" id="endDate">
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">&nbsp;</label>
+                    <button class="btn btn-outline-primary" onclick="applyCustomDateRange()" style="width: 100%; height: 38px; display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-calendar-check"></i> Apply
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- To-Do List Table Container -->
+        <div class="table-container todo-list-container mb-4">
+            <div class="table-header">
+                <h3 class="table-title">To-Do List</h3>
+                <p class="table-subtitle">Customers with pending tasks that need your attention</p>
+            </div>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Customer</th>
+                            <th>Contact</th>
+                            <th>To-Do</th>
+                            <th class="text-center">AI Status</th>
+                            <th class="text-center">Customer Status</th>
+                            <th>Created</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="todoTableBody">
+                        <tr>
+                            <td colspan="7" class="text-center py-4">
+                                <div class="spinner mx-auto mb-2"></div>
+                                <span class="text-muted">Loading to-do items...</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Customer List Table Container -->
+        <div class="table-container">
+            <div class="table-header">
+                <h3 class="table-title">Customer List</h3>
+                <p class="table-subtitle">Manage your customer relationships and track their progress</p>
+            </div>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Customer</th>
+                            <th>Contact</th>
+                            <th class="text-center">AI Status</th>
+                            <th class="text-center">Customer Status</th>
+                            <th>Created</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="customerTableBody">
+                        <tr>
+                            <td colspan="6" class="text-center py-4">
+                                <div class="spinner mx-auto mb-2"></div>
+                                <span class="text-muted">Loading customers...</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Panel -->
+    <div id="notificationPanel" class="notification-panel">
+        <div class="notification-header">
+            <h6 class="mb-0">Notifications</h6>
+            <button class="btn btn-sm btn-outline-light" onclick="markAllAsRead()">Mark All Read</button>
+        </div>
+        <div id="notificationList" class="notification-list">
+            <div class="p-3 text-center text-muted">Loading notifications...</div>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirm Delete</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to delete this customer?</p>
+                    <p class="text-muted" id="deleteCustomerInfo"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger" onclick="confirmDelete()">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/crm.js"></script>
+</body>
+</html> 

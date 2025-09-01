@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhatsApp Campaigns Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="css/crm.css" rel="stylesheet">
+    <style>
+        .campaign-card {
+            background: var(--bg-card);
+            border-radius: 0.75rem;
+            padding: 1.25rem;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+        
+        .campaign-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .campaign-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .campaign-stats {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .campaign-stat {
+            padding: 0.5rem;
+            background: var(--bg-secondary);
+            border-radius: 0.5rem;
+            flex: 1;
+            text-align: center;
+        }
+        
+        .campaign-stat-value {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+        
+        .campaign-stat-label {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+        
+        .campaign-progress {
+            margin-top: 1rem;
+            height: 8px;
+            border-radius: 4px;
+        }
+        
+        .campaign-type-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .campaign-type-broadcast {
+            background-color: rgba(37, 99, 235, 0.1);
+            color: var(--primary-color);
+        }
+        
+        .campaign-type-template {
+            background-color: rgba(217, 119, 6, 0.1);
+            color: var(--warning-color);
+        }
+        
+        .campaign-actions {
+            margin-top: 1rem;
+            display: flex;
+            gap: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <a href="/crm.html" class="sidebar-logo">
+                    <i class="fas fa-whatsapp"></i>
+                </a>
+            </div>
+            <ul class="sidebar-menu">
+                <li class="sidebar-item" title="Dashboard">
+                    <a href="/crm.html">
+                        <i class="fas fa-tachometer-alt"></i>
+                    </a>
+                </li>
+                <li class="sidebar-item" title="Chat">
+                    <a href="/chat.html">
+                        <i class="fas fa-comments"></i>
+                    </a>
+                </li>
+                <li class="sidebar-item active" title="Campaigns">
+                    <a href="/campaigns.html">
+                        <i class="fas fa-bullhorn"></i>
+                    </a>
+                </li>
+                <li class="sidebar-item" title="Analytics">
+                    <a href="/analytics.html">
+                        <i class="fas fa-chart-line"></i>
+                    </a>
+                </li>
+                <li class="sidebar-item" title="Settings">
+                    <a href="/settings.html">
+                        <i class="fas fa-cog"></i>
+                    </a>
+                </li>
+            </ul>
+            <div class="sidebar-footer">
+                <a href="#" title="Help">
+                    <i class="fas fa-question-circle"></i>
+                </a>
+                <a href="#" title="Account">
+                    <i class="fas fa-user-circle"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="main-container">
+            <!-- Page Header -->
+            <div class="page-header">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <h1 class="header-title">
+                            Campaigns
+                        </h1>
+                        <p class="header-subtitle">Create and manage WhatsApp marketing campaigns</p>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="d-flex justify-content-end align-items-center gap-2">
+                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newCampaignModal">
+                                <i class="fas fa-plus me-1"></i> New Campaign
+                            </button>
+                            <button class="btn btn-outline-light btn-sm" onclick="toggleDarkMode()">
+                                <i class="fas fa-moon"></i> Dark Mode
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filters -->
+            <div class="filters-section">
+                <div class="filter-row">
+                    <div class="filter-group" style="flex: 2;">
+                        <label class="filter-label">Search Campaigns</label>
+                        <input type="text" class="form-control" placeholder="Search by campaign name...">
+                    </div>
+                    <div class="filter-group">
+                        <label class="filter-label">Filter by Type</label>
+                        <select class="form-select">
+                            <option value="">All Types</option>
+                            <option value="broadcast">Broadcast</option>
+                            <option value="template">Template</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label class="filter-label">Filter by Status</label>
+                        <select class="form-select">
+                            <option value="">All Status</option>
+                            <option value="active">Active</option>
+                            <option value="draft">Draft</option>
+                            <option value="completed">Completed</option>
+                            <option value="scheduled">Scheduled</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label class="filter-label">&nbsp;</label>
+                        <button class="btn btn-outline-primary" style="width: 100%; height: 38px;">
+                            <i class="fas fa-filter me-1"></i> Apply Filters
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Campaigns Grid -->
+            <div class="row g-3 mt-2">
+                <!-- Campaign Card 1 -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="campaign-card position-relative">
+                        <span class="campaign-type-badge campaign-type-broadcast">Broadcast</span>
+                        <div class="campaign-title">End of Year Promo</div>
+                        <div class="text-muted">Sent to 150 customers</div>
+                        <div class="mt-3 mb-1 d-flex justify-content-between align-items-center">
+                            <span class="text-muted">Progress</span>
+                            <span class="badge bg-success">85%</span>
+                        </div>
+                        <div class="progress campaign-progress">
+                            <div class="progress-bar bg-success" role="progressbar" style="width: 85%"></div>
+                        </div>
+                        <div class="campaign-stats">
+                            <div class="campaign-stat">
+                                <div class="campaign-stat-value">127</div>
+                                <div class="campaign-stat-label">Delivered</div>
+                            </div>
+                            <div class="campaign-stat">
+                                <div class="campaign-stat-value">98</div>
+                                <div class="campaign-stat-label">Read</div>
+                            </div>
+                            <div class="campaign-stat">
+                                <div class="campaign-stat-value">45</div>
+                                <div class="campaign-stat-label">Replies</div>
+                            </div>
+                        </div>
+                        <div class="campaign-actions">
+                            <button class="btn btn-sm btn-outline-primary"><i class="fas fa-eye"></i></button>
+                            <button class="btn btn-sm btn-outline-success"><i class="fas fa-copy"></i></button>
+                            <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Campaign Card 2 -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="campaign-card position-relative">
+                        <span class="campaign-type-badge campaign-type-template">Template</span>
+                        <div class="campaign-title">Welcome Message</div>
+                        <div class="text-muted">Automatic welcome for new customers</div>
+                        <div class="mt-3 mb-1 d-flex justify-content-between align-items-center">
+                            <span class="text-muted">Status</span>
+                            <span class="badge bg-primary">Active</span>
+                        </div>
+                        <div class="progress campaign-progress">
+                            <div class="progress-bar bg-primary" role="progressbar" style="width: 100%"></div>
+                        </div>
+                        <div class="campaign-stats">
+                            <div class="campaign-stat">
+                                <div class="campaign-stat-value">320</div>
+                                <div class="campaign-stat-label">Sent</div>
+                            </div>
+                            <div class="campaign-stat">
+                                <div class="campaign-stat-value">290</div>
+                                <div class="campaign-stat-label">Delivered</div>
+                            </div>
+                            <div class="campaign-stat">
+                                <div class="campaign-stat-value">175</div>
+                                <div class="campaign-stat-label">Read</div>
+                            </div>
+                        </div>
+                        <div class="campaign-actions">
+                            <button class="btn btn-sm btn-outline-primary"><i class="fas fa-eye"></i></button>
+                            <button class="btn btn-sm btn-outline-success"><i class="fas fa-edit"></i></button>
+                            <button class="btn btn-sm btn-outline-danger"><i class="fas fa-pause"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Campaign Card 3 -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="campaign-card position-relative">
+                        <span class="campaign-type-badge campaign-type-broadcast">Broadcast</span>
+                        <div class="campaign-title">Special Offer</div>
+                        <div class="text-muted">Limited time discount for loyal customers</div>
+                        <div class="mt-3 mb-1 d-flex justify-content-between align-items-center">
+                            <span class="text-muted">Progress</span>
+                            <span class="badge bg-warning">50%</span>
+                        </div>
+                        <div class="progress campaign-progress">
+                            <div class="progress-bar bg-warning" role="progressbar" style="width: 50%"></div>
+                        </div>
+                        <div class="campaign-stats">
+                            <div class="campaign-stat">
+                                <div class="campaign-stat-value">75</div>
+                                <div class="campaign-stat-label">Delivered</div>
+                            </div>
+                            <div class="campaign-stat">
+                                <div class="campaign-stat-value">60</div>
+                                <div class="campaign-stat-label">Read</div>
+                            </div>
+                            <div class="campaign-stat">
+                                <div class="campaign-stat-value">25</div>
+                                <div class="campaign-stat-label">Replies</div>
+                            </div>
+                        </div>
+                        <div class="campaign-actions">
+                            <button class="btn btn-sm btn-outline-primary"><i class="fas fa-eye"></i></button>
+                            <button class="btn btn-sm btn-outline-success"><i class="fas fa-copy"></i></button>
+                            <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/crm.js"></script>
+</body>
+</html> 

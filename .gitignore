@@ -1,0 +1,60 @@
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Authentication files
+auth_info/
+auth_info_baileys/
+
+# Temporary files
+tmp/
+*.tmp
+*.temp
+
+# Audio files (if not needed in repo)
+audio.ogg
+
+# Notifications (generated files)
+notifications.json
+
+# VAPID keys (sensitive)
+vapid-keys.json
+
+# Logs
+logs
+*.log
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Build output
+dist/
+build/

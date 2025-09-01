@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>API Key Test Page</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 2em; }
+    #result { margin-top: 1em; white-space: pre-wrap; background: #f4f4f4; padding: 1em; border-radius: 5px; }
+    button { padding: 0.5em 1em; font-size: 1em; }
+    label { display: block; margin-top: 1em; }
+    input { width: 100%; padding: 0.5em; margin-top: 0.2em; }
+  </style>
+</head>
+<body>
+  <h1>Test Anthropic API Key</h1>
+  <label>
+    x-api-key:
+    <input type="text" id="apiKey" value="">
+  </label>
+  <label>
+    anthropic-version:
+    <input type="text" id="anthropicVersion" value="">
+  </label>
+  <label>
+    api_key_id:
+    <input type="text" id="apiKeyId" value="">
+  </label>
+  <button id="testBtn">Test API</button>
+  <div id="result"></div>
+  <script>
+    document.getElementById('testBtn').onclick = function() {
+      const apiKey = document.getElementById('apiKey').value;
+      const anthropicVersion = document.getElementById('anthropicVersion').value;
+      const apiKeyId = document.getElementById('apiKeyId').value;
+      const options = {
+        method: 'GET',
+        headers: {
+          'x-api-key': apiKey,
+          'anthropic-version': anthropicVersion
+        }
+      };
+      document.getElementById('result').textContent = 'Loading...';
+      const url = `https://api.anthropic.com/v1/organizations/api_keys/${apiKeyId}`;
+      fetch(url, options)
+        .then(response => response.json())
+        .then(response => {
+          document.getElementById('result').textContent = JSON.stringify(response, null, 2);
+        })
+        .catch(err => {
+          document.getElementById('result').textContent = 'Error: ' + err;
+        });
+    };
+  </script>
+</body>
+</html> 

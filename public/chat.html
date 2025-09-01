@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhatsApp Chat Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="css/crm.css" rel="stylesheet">
+    <style>
+        .chat-container {
+            height: calc(100vh - 200px);
+            display: flex;
+            border-radius: 0.75rem;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+        .chat-sidebar {
+            width: 300px;
+            background-color: var(--bg-secondary);
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+        }
+        .chat-search {
+            padding: 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .chat-contacts {
+            flex: 1;
+            overflow-y: auto;
+        }
+        .chat-contact {
+            padding: 15px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .chat-contact:hover {
+            background-color: rgba(0,0,0,0.03);
+        }
+        .chat-contact.active {
+            background-color: rgba(37, 99, 235, 0.1);
+        }
+        .chat-contact-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 500;
+        }
+        .chat-contact-info {
+            flex: 1;
+        }
+        .chat-contact-name {
+            font-weight: 500;
+            margin-bottom: 2px;
+        }
+        .chat-contact-preview {
+            font-size: 13px;
+            color: var(--text-muted);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .chat-main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .chat-header {
+            padding: 15px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            min-height: 70px;
+        }
+        .chat-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background-color: #f0f2f5;
+            display: flex;
+            flex-direction: column;
+        }
+        .message {
+            margin-bottom: 15px;
+            max-width: 70%;
+            padding: 10px 15px;
+            border-radius: 0.75rem;
+            position: relative;
+            word-break: break-word;
+        }
+        .message-incoming {
+            background-color: white;
+            border-top-left-radius: 0;
+            align-self: flex-start;
+        }
+        .message-outgoing {
+            background-color: #dcf8c6;
+            border-top-right-radius: 0;
+            align-self: flex-end;
+            margin-left: auto;
+        }
+        .message-time {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 4px;
+            text-align: right;
+        }
+        .message-pushname {
+            font-size: 12px;
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+        .chat-input {
+            padding: 15px;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+        }
+        .chat-input input {
+            flex: 1;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 20px;
+            margin: 0 10px;
+            background-color: var(--bg-secondary);
+        }
+        .chat-input input:focus {
+            outline: none;
+        }
+        .chat-input button {
+            border: none;
+            background: none;
+            color: var(--primary-color);
+            font-size: 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <a href="/crm.html" class="sidebar-logo">
+                    <i class="fas fa-whatsapp"></i>
+                </a>
+            </div>
+            <ul class="sidebar-menu">
+                <li class="sidebar-item" title="Dashboard">
+                    <a href="/crm.html">
+                        <i class="fas fa-tachometer-alt"></i>
+                    </a>
+                </li>
+                <li class="sidebar-item active" title="Chat">
+                    <a href="/chat.html">
+                        <i class="fas fa-comments"></i>
+                    </a>
+                </li>
+                <li class="sidebar-item" title="Campaigns">
+                    <a href="/campaigns.html">
+                        <i class="fas fa-bullhorn"></i>
+                    </a>
+                </li>
+                <li class="sidebar-item" title="Analytics">
+                    <a href="/analytics.html">
+                        <i class="fas fa-chart-line"></i>
+                    </a>
+                </li>
+                <li class="sidebar-item" title="Settings">
+                    <a href="/settings.html">
+                        <i class="fas fa-cog"></i>
+                    </a>
+                </li>
+            </ul>
+            <div class="sidebar-footer">
+                <a href="#" title="Help">
+                    <i class="fas fa-question-circle"></i>
+                </a>
+                <a href="#" title="Account">
+                    <i class="fas fa-user-circle"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="main-container">
+            <!-- Page Header -->
+            <div class="page-header">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <h1 class="header-title">
+                            Chat
+                        </h1>
+                        <p class="header-subtitle">Communicate with your customers</p>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="d-flex justify-content-end align-items-center gap-2">
+                            <button class="btn btn-outline-light btn-sm" onclick="toggleDarkMode()">
+                                <i class="fas fa-moon"></i> Dark Mode
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chat Container -->
+            <div class="chat-container">
+                <div class="chat-sidebar">
+                    <div class="chat-search">
+                        <input type="text" class="form-control" placeholder="Search contacts..." id="contactSearchInput">
+                    </div>
+                    <div class="chat-contacts" id="chatContacts"></div>
+                </div>
+                <div class="chat-main">
+                    <div class="chat-header" id="chatHeader">
+                        <span class="text-muted">Select a contact to start chatting</span>
+                        <div id="aiToggleContainer" style="margin-left:auto;"></div>
+                    </div>
+                    <div class="chat-messages d-flex flex-column" id="chatMessages">
+                        <div class="text-muted mx-auto my-5">No conversation selected</div>
+                    </div>
+                    <form class="chat-input" id="chatInputForm" style="display:none;">
+                        <input type="file" id="chatFileInput" style="display:none;" accept="image/*,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/zip,application/x-rar-compressed,application/octet-stream,.doc,.docx,.xls,.xlsx,.pdf,.zip,.rar">
+                        <button type="button" tabindex="-1" id="attachBtn"><i class="fas fa-paperclip"></i></button>
+                        <input type="text" id="chatInput" placeholder="Type a message..." autocomplete="off">
+                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                    </form>
+                    <div id="imagePreview" style="margin-top:8px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    // --- Chat App Logic ---
+    console.log('[DEBUG] Chat script starting...');
+    let contacts = [];
+    let selectedContact = null;
+    let chatHistory = [];
+    let chatPollingInterval = null;
+    let contactsPollingInterval = null;
+
+    async function fetchContacts() {
+        console.log('[DEBUG] Fetching contacts...');
+        const res = await fetch('/api/chats');
+        const data = await res.json();
+        contacts = data.contacts || [];
+        console.log('[DEBUG] Contacts loaded:', contacts.length);
+        renderContacts();
+    }
+
+    function renderContacts(filter = '') {
+        const container = document.getElementById('chatContacts');
+        let filtered = contacts;
+        if (filter) {
+            filtered = contacts.filter(c => (c.contactName || c.number).toLowerCase().includes(filter.toLowerCase()));
+        }
+        if (filtered.length === 0) {
+            container.innerHTML = '<div class="text-muted p-3">No contacts found</div>';
+            return;
+        }
+        container.innerHTML = filtered.map(c => {
+            let lastMsg = c.lastMessage || '';
+            if (lastMsg.length > 30) lastMsg = lastMsg.slice(0, 30) + '...';
+            return `
+            <div class="chat-contact${selectedContact && selectedContact.number === c.number ? ' active' : ''}" data-number="${c.number}">
+                <div class="chat-contact-avatar" style="background-color: #25D366;">${(c.contactName || c.number)[0].toUpperCase()}</div>
+                <div class="chat-contact-info">
+                    <div class="chat-contact-name">${c.contactName || c.number} <span class="text-muted small" style="font-weight:400;">${c.number}</span>
+                    ${c.unreadCount && c.unreadCount > 0 ? `<span class="badge bg-danger ms-2" style="font-size:11px;vertical-align:middle;">${c.unreadCount}</span>` : ''}
+                    </div>
+                    <div class="chat-contact-preview">${lastMsg}</div>
+                </div>
+            </div>
+            `;
+        }).join('');
+    }
+
+    async function renderAiToggle(number) {
+        const container = document.getElementById('aiToggleContainer');
+        if (!container) return;
+        // Fetch customer data from /api/customers
+        let customers = [];
+        try {
+            const res = await fetch('/api/customers');
+            customers = await res.json();
+            console.log('[AI TOGGLE DEBUG] Customers loaded:', customers);
+        } catch (e) {
+            container.innerHTML = '<span class="text-muted small">AI status not available (API error)</span>';
+            console.error('[AI TOGGLE DEBUG] Error fetching /api/customers:', e);
+            return;
+        }
+        // Robust number matching (ignore non-digit chars)
+        const clean = n => (n || '').replace(/[^0-9]/g, '');
+        const cleanedNumber = clean(number);
+        const customer = customers.find(c => clean(c.no_hp) === cleanedNumber);
+        console.log('[AI TOGGLE DEBUG] Looking for number:', cleanedNumber, 'Found:', customer);
+        if (!customer) {
+            container.innerHTML = `<span class="text-danger small">AI toggle unavailable: nomor tidak ditemukan di database.<br>Nomor dicari: <b>${cleanedNumber}</b></span>`;
+            // Debug info
+            console.debug('[AI TOGGLE DEBUG] Customer not found for number', cleanedNumber, 'in', customers.map(c => c.no_hp));
+            return;
+        }
+        const aiDisabled = customer.ai_disabled;
+        container.innerHTML = `
+            <button id="aiToggleBtn" class="btn btn-sm ${aiDisabled ? 'btn-danger' : 'btn-success'}" style="min-width:110px;">
+                <i class="fas fa-robot"></i> ${aiDisabled ? 'Enable AI' : 'Disable AI'}
+            </button>
+        `;
+        document.getElementById('aiToggleBtn').onclick = async () => {
+            await fetch(`/api/customers/${customer.id}/ai-status`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ ai_disabled: !aiDisabled })
+            });
+            renderAiToggle(number); // Refresh button
+        };
+    }
+
+    // Mark as read when chat is opened
+    async function loadChat(number) {
+        console.log('[DEBUG] Loading chat for number:', number);
+        selectedContact = contacts.find(c => c.number === number);
+        if (!selectedContact) {
+            console.log('[DEBUG] Contact not found for number:', number);
+            return;
+        }
+        document.querySelectorAll('.chat-contact').forEach(el => el.classList.remove('active'));
+        const activeEl = document.querySelector(`.chat-contact[data-number="${number}"]`);
+        if (activeEl) activeEl.classList.add('active');
+        document.getElementById('chatHeader').innerHTML = `
+            <div class="chat-contact-avatar" style="background-color: #25D366;">${(selectedContact.contactName || selectedContact.number)[0].toUpperCase()}</div>
+            <div class="chat-contact-info">
+                <div class="chat-contact-name">${selectedContact.contactName || selectedContact.number}</div>
+                <div class="chat-contact-preview">${selectedContact.number}</div>
+            </div>
+            <div id="aiToggleContainer" style="margin-left:auto;"></div>
+        `;
+        document.getElementById('chatInputForm').style.display = '';
+        await fetch(`/api/chats/${number}/read`, { method: 'POST' });
+        await fetchAndRenderChat(number);
+        console.log('[DEBUG] Calling renderAiToggle for number:', number);
+        await renderAiToggle(number);
+        if (chatPollingInterval) clearInterval(chatPollingInterval);
+        chatPollingInterval = setInterval(() => {
+            if (selectedContact) fetchAndRenderChat(selectedContact.number, true);
+        }, 2000);
+    }
+
+    async function fetchAndRenderChat(number, silent = false) {
+        const res = await fetch(`/api/chats/${number}`);
+        const data = await res.json();
+        // Only update if changed
+        if (!silent || JSON.stringify(data.history) !== JSON.stringify(chatHistory)) {
+            chatHistory = data.history || [];
+            renderMessages();
+        }
+    }
+
+    function renderMessages() {
+        const container = document.getElementById('chatMessages');
+        if (!chatHistory.length) {
+            container.innerHTML = '<div class="text-muted mx-auto my-5">No messages yet</div>';
+            return;
+        }
+        container.innerHTML = chatHistory.map(msg => `
+            <div class="message message-${msg.direction === 'outgoing' ? 'outgoing' : 'incoming'}">
+                <div class="message-pushname">${msg.pushname || ''}</div>
+                ${
+                    msg.mediaType === 'image' && msg.mediaUrl
+                    ? `<div class='my-2'><img src='${msg.mediaUrl}' style='max-width:180px;max-height:180px;border-radius:8px;border:1px solid #eee;'/></div>`
+                    : `<div class="message-text">${msg.message || ''}</div>`
+                }
+                ${
+                    msg.mediaUrl && msg.mediaType !== 'image'
+                    ? `<div class='text-muted small'>[Media: <a href='${msg.mediaUrl}' target='_blank'>View</a>]</div>`
+                    : ''
+                }
+                <div class="message-time">${formatChatDate(msg.timestamp)}</div>
+            </div>
+        `).join('');
+        container.scrollTop = container.scrollHeight;
+    }
+
+    function formatChatDate(dateStr) {
+        const date = new Date(dateStr);
+        return date.toLocaleString('en-US', {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: true
+        });
+    }
+
+    async function sendMessage(e) {
+        e.preventDefault();
+        const input = document.getElementById('chatInput');
+        const text = input.value.trim();
+        if (!text || !selectedContact) return;
+        input.value = '';
+        // Send to backend
+        await fetch('/send-text', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                number: selectedContact.number,
+                message: text,
+                pushname: 'Me'
+            })
+        });
+        // Reload chat after short delay
+        setTimeout(() => loadChat(selectedContact.number), 400);
+    }
+
+    document.getElementById('chatContacts').addEventListener('click', function(e) {
+        const el = e.target.closest('.chat-contact');
+        if (el) {
+            loadChat(el.dataset.number);
+        }
+    });
+    document.getElementById('chatInputForm').addEventListener('submit', sendMessage);
+    document.getElementById('contactSearchInput').addEventListener('input', function() {
+        renderContacts(this.value);
+    });
+
+    document.getElementById('attachBtn').addEventListener('click', function() {
+        document.getElementById('chatFileInput').click();
+    });
+
+    document.getElementById('chatFileInput').addEventListener('change', async function(e) {
+        const file = e.target.files[0];
+        const previewDiv = document.getElementById('imagePreview');
+        previewDiv.innerHTML = '';
+        if (!file || !selectedContact) return;
+        if (file.type.startsWith('image/')) {
+            // Preview image before sending
+            const reader = new FileReader();
+            reader.onload = function(evt) {
+                previewDiv.innerHTML = `<img src="${evt.target.result}" style="max-width:180px;max-height:180px;border-radius:8px;border:1px solid #eee;"/>
+                    <button id="sendImageBtn" class="btn btn-sm btn-success" style="margin-left:8px;">Kirim</button>
+                    <button id="cancelPreview" style="margin-left:8px;" class="btn btn-sm btn-danger">Batal</button>`;
+                document.getElementById('cancelPreview').onclick = () => {
+                    previewDiv.innerHTML = '';
+                    document.getElementById('chatFileInput').value = '';
+                };
+                document.getElementById('sendImageBtn').onclick = async () => {
+                    const formData = new FormData();
+                    formData.append('number', selectedContact.number);
+                    formData.append('pushname', 'Me');
+                    formData.append('image', file);
+                    formData.append('caption', '');
+                    await sendImageOrDocument('/send-image-upload', formData);
+                    document.getElementById('chatFileInput').value = '';
+                    previewDiv.innerHTML = '';
+                };
+            };
+            reader.readAsDataURL(file);
+        } else {
+            previewDiv.innerHTML = '';
+            // langsung upload dokumen
+            const formData = new FormData();
+            formData.append('number', selectedContact.number);
+            formData.append('pushname', 'Me');
+            formData.append('document', file);
+            formData.append('caption', file.name);
+            await sendImageOrDocument('/send-document-upload', formData);
+            e.target.value = '';
+        }
+    });
+
+    async function sendImageOrDocument(endpoint, formData) {
+        const btn = document.getElementById('attachBtn');
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+        await fetch(endpoint, {
+            method: 'POST',
+            body: formData
+        });
+        setTimeout(() => loadChat(selectedContact.number), 700);
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-paperclip"></i>';
+    }
+
+    fetchContacts();
+    contactsPollingInterval = setInterval(fetchContacts, 3000);
+
+    // Auto-open chat if ?number=... is present in URL
+    window.addEventListener('DOMContentLoaded', () => {
+        console.log('[DEBUG] DOM Content Loaded');
+        const params = new URLSearchParams(window.location.search);
+        const number = params.get('number');
+        console.log('[DEBUG] URL number parameter:', number);
+        if (number) {
+            // Wait for contacts to load, then open chat
+            const tryOpen = () => {
+                console.log('[DEBUG] Trying to open chat for:', number);
+                if (contacts && contacts.length) {
+                    const found = contacts.find(c => c.number === number);
+                    if (found) {
+                        console.log('[DEBUG] Contact found, loading chat');
+                        loadChat(number);
+                    }
+                    else {
+                        console.log('[DEBUG] Contact not found, retrying...');
+                        setTimeout(tryOpen, 300);
+                    }
+                } else {
+                    console.log('[DEBUG] No contacts loaded yet, retrying...');
+                    setTimeout(tryOpen, 300);
+                }
+            };
+            tryOpen();
+        }
+    });
+
+    window.addEventListener('beforeunload', () => {
+        if (chatPollingInterval) clearInterval(chatPollingInterval);
+        if (contactsPollingInterval) clearInterval(contactsPollingInterval);
+    });
+    </script>
+</body>
+</html> 
